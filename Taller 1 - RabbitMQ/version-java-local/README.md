@@ -3,7 +3,7 @@ Solo corre en local, falta dockerizar más...
 
 Si se quiere correr:
 1. Ejecutar RabbitMQ en su maquina con:
-docker run -d --restart always --name rabbitmq -p5672:5672 -p15672:15672 rabbitmq:3.9-management
+`docker run -d --restart always --name rabbitmq -p5672:5672 -p15672:15672 rabbitmq:3.9-management`
 
 2. Entrar a: http://localhost:15672/
 Iniciar sesión en RabbitMQ:
