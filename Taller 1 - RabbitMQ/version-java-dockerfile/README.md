@@ -9,10 +9,12 @@ Falta usar docker-compose para evitar ingresar tantos comandos manualmente...
 `docker network create red-1`
 
 **3. Crear los contenedores que desee:**  
-* Crear contenedor de Broker: `docker run --network red-1 --name broker-1 -p5672:5672 -p15672:15672 -d rabbitmq:management`
-* Crear contenedor de Productor: `docker run --network red-1 --name java-producer-1 -p8081:8081 -d java-producer`
-* Crear contenedor de Consumidor: `docker run --network red-1 --name java-consumer-1 -p8082:8082 -d java-consumer`
+* Crear contenedor de Broker: `docker run --network red-1 --name broker-1 -p5672:5672 -p15672:15672 -d rabbitmq:management`  
+* Crear contenedor de Productor: `docker run --network red-1 --name java-producer-1 -p8081:8081 -d java-producer`  
+* Crear contenedor de Consumidor: `docker run --network red-1 --name java-consumer-1 -p8082:8082 -d java-consumer`  
+
 **Nota:**  
+* Use la imagen `rabbitmq:management` o de lo contrario no podra acceder a: http://localhost:15672/ 
 * Si desea crear más Productores o Consumidores cambiar el nombre y el puerto.
 * No es posible crear más Brokers o cambiarle el nombre (Se le llamo "broker-1" en el application.properties)
 
@@ -31,6 +33,7 @@ Y oprimir el botón: [Add queue]
 * Broker: http://localhost:15672/  
 * Productor: http://localhost:8081/publish/{message}  
 * Consumidor: http://localhost:8082/consumed/messages  
+
 **Nota:**  
 * Se debe recargar el Consumidor para ver los nuevos mensajes recibidos.  
 * Si crea más de un Consumidor los mensajes seguiran un Round-Robin-Protocol (Se turnaran para recibir los mensajes).
