@@ -1,0 +1,77 @@
+version: "3"
+
+services:
+
+  broker-1:
+    image: rabbitmq:management
+    container_name: broker-1
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - red-1
+
+  setup-broker-1:
+    image: rabbitmq:management
+    container_name: setup-broker-1
+    depends_on:
+      - broker-1
+    environment:
+      BROKER_NAME: broker-1
+      QUEUE_NAME: cola1
+    command:
+      sh -c "while true; do rabbitmqadmin -u guest -p guest -H $${BROKER_NAME} -P 15672 declare queue name=$${QUEUE_NAME} durable=true && break || sleep 1; done"
+    networks:
+      - red-1
+
+  java-producer-1:
+    build:
+      context: ./producer
+    image: java-producer
+    container_name: java-producer-1
+    ports:
+      - "8081:8081"
+    depends_on:
+      - broker-1
+    networks:
+      - red-1
+
+  java-producer-2:
+    build:
+      context: ./producer
+    image: java-producer
+    container_name: java-producer-2
+    ports:
+      - "8082:8081"
+    depends_on:
+      - broker-1
+    networks:
+      - red-1
+
+  java-consumer-1:
+    build:
+      context: ./consumer
+    image: java-consumer
+    container_name: java-consumer-1
+    ports:
+      - "8083:8082"
+    depends_on:
+      - broker-1
+    networks:
+      - red-1
+
+  java-consumer-2:
+    build:
+      context: ./consumer
+    image: java-consumer
+    container_name: java-consumer-2
+    ports:
+      - "8084:8082"
+    depends_on:
+      - broker-1
+    networks:
+      - red-1
+
+networks:
+  red-1:
+    driver: bridge
