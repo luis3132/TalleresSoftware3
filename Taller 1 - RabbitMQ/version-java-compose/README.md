@@ -1,10 +1,10 @@
 # Versión de Consumidor y Productor en Java con Docker-Compose
 
 **Levantar la infraestructura deseada:**  
-* **(CASO 1)**  
-  **1 broker, 1 consumidor, 1 productor** ejecutar: `docker-compose -f broker-consumer-producer-[java].yml up -d`  
-* **(CASO 2)**  
-  **1 broker, 2 consumidores, 2 produtores** ejecutar: `docker-compose -f broker-consumer[2]-producer[2]-[java].yml up -d`  
+* **(CASO 1) 1 broker, 1 consumidor, 1 productor**
+  Ejecutar: `docker-compose -f broker-consumer-producer-[java].yml up -d`  
+* **(CASO 2) 1 broker, 2 consumidores, 2 produtores**  
+  Ejecutar: `docker-compose -f broker-consumer[2]-producer[2]-[java].yml up -d`  
 
 **Nota:**  
 * No levantar ambas infraestructuras (Conflictos de nombres y puertos). Si desea probar la otra usar el comando `down` primero.
