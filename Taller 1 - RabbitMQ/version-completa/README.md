@@ -33,13 +33,13 @@
 * Cuando hay más de un Consumidor los mensajes siguen el Round-Robin-Protocol (Se turnaran para recibir los mensajes).
 
 **(CASO 4) Inicializar contenedores en maquinas independientes**  
-**Broker:**  
+* **Broker:**  
 `docker run --name broker-1 -e BROKER_NAME=localhost -e QUEUE_NAME=cola1 -p5672:5672 -p15672:15672 -d rabbitmq:management`  
 `docker exec broker-1 /bin/bash -c 'rabbitmqadmin -u guest -p guest -H ${BROKER_NAME} -P 15672 declare queue name=${QUEUE_NAME} durable=true'`  
-**Productor:**  
+* **Productor:**  
 `docker build -t java-producer .`  
 `docker run --name java-producer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8081:8081 -d java-producer`  
-**Consumidor:**  
+* **Consumidor:**  
 `docker build -t java-consumer .`  
 `docker run --name java-consumer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8082:8082 -d java-consumer`  
 
