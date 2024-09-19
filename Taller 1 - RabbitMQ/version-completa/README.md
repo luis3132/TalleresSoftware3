@@ -20,7 +20,7 @@
 * Productor: http://localhost:8081/publish/{message}  
 * Consumidor: http://localhost:8082/consumed/messages
 
-**(CASO 2) Acceder a los contenedores:**  
+**(CASO 2-3) Acceder a los contenedores:**  
 * Broker: http://localhost:15672/  
 * Productor-1: http://localhost:8081/publish/{message}
 * Productor-2: http://localhost:8082/publish/{message}  
