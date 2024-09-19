@@ -32,7 +32,7 @@
 * Se deben recargar los Consumidores para ver los nuevos mensajes recibidos.  
 * Cuando hay más de un Consumidor los mensajes siguen el Round-Robin-Protocol (Se turnaran para recibir los mensajes).
 
-**(CASO 4) Inicializar contenedores en maquinas independientes**  
+**(CASO 4) Inicializar contenedores en maquinas independientes:**  
 * **Broker:**  
 `docker run --name broker-1 -e BROKER_NAME=localhost -e QUEUE_NAME=cola1 -p5672:5672 -p15672:15672 -d rabbitmq:management`  
 `docker exec broker-1 /bin/bash -c 'rabbitmqadmin -u guest -p guest -H ${BROKER_NAME} -P 15672 declare queue name=${QUEUE_NAME} durable=true'`  
