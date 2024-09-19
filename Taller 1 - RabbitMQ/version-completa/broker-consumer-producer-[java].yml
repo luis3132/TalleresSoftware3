@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+
+  broker-1:
+    image: rabbitmq:management
+    container_name: broker-1
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - red-1
+    environment:
+      BROKER_NAME: broker-1
+      QUEUE_NAME: cola1
+    healthcheck:
+      test: rabbitmqadmin -u guest -p guest -H $${BROKER_NAME} -P 15672 declare queue name=$${QUEUE_NAME} durable=true
+      interval: 1s
+      retries: 20
+
+  java-producer-1:
+    build:
+      context: ./producer
+    image: java-producer
+    container_name: java-producer-1
+    ports:
+      - "8081:8081"
+    depends_on:
+      broker-1:
+        condition: service_healthy
+    networks:
+      - red-1
+
+  java-consumer-1:
+    build:
+      context: ./consumer
+    image: java-consumer
+    container_name: java-consumer-1
+    ports:
+      - "8082:8082"
+    depends_on:
+      broker-1:
+        condition: service_healthy
+    networks:
+      - red-1
+
+networks:
+  red-1:
+    driver: bridge

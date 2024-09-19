@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import os
 import pika
 from threading import Lock
 
@@ -23,11 +24,16 @@ class ConsumerService:
 # Create an instance of the ConsumerService
 consumer_service = ConsumerService()
 
+# Getting environment variables
+BROKER_NAME = 'broker-1' #os.getenv('BROKER_NAME')
+QUEUE_NAME = 'cola1'#os.getenv('QUEUE_NAME')
+
 # Set up RabbitMQ connection and channel
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='broker-1'))
+#connection = pika.BlockingConnection(pika.ConnectionParameters(host=BROKER_NAME))
 channel = connection.channel()
-channel.queue_declare(queue='my_queue')  # Ensure the queue exists (LINEA A QUITAR)
-channel.basic_consume(queue='my_queue', on_message_callback=consumer_service.consume, auto_ack=True)
+channel.basic_consume(queue='cola1', on_message_callback=consumer_service.consume, auto_ack=True)
+#channel.basic_consume(queue=QUEUE_NAME, on_message_callback=consumer_service.consume, auto_ack=True)
 
 # Start consuming messages in a separate thread
 def start_consuming():
