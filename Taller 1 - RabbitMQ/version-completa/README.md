@@ -1,12 +1,12 @@
 # Versión de Consumidor y Productor en Java con Docker-Compose
 
-**Versión de Docker y Docker-Compose:**
+**Versión de Docker y Docker-Compose:**  
 Los archivos yaml funcionaron en una maquina `Windows 10` con `Docker Desktop` con las siguientes versiones:  
 `
-docker --version
-Docker version 27.1.1, build 6312585
-docker-compose --version
-Docker Compose version v2.29.1-desktop.1
+docker --version  
+Docker version 27.1.1, build 6312585  
+docker-compose --version  
+Docker Compose version v2.29.1-desktop.1  
 `  
 **Levantar la infraestructura deseada:**  
 * **(CASO 1 - JAVA) 1 broker, 1 consumidor, 1 productor:**  
