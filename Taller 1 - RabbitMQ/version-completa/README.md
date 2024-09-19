@@ -10,7 +10,7 @@
 * **(CASO 2 - PYTHON) 1 broker, 2 consumidores, 2 produtores:**  
   Ejecutar: `docker-compose -f broker-consumer[2]-producer[2]-[python].yml up -d`
 * **(CASO 3 - JAVA+PYTHON) 1 broker, 2 consumidores, 2 produtores:**  
-  Ejecutar: `docker-compose -f broker-consumer[2]-producer[2]-[java-python].yml up -d`  
+  Ejecutar: `docker-compose -f broker-consumer[2]-producer[2]-[java-python].yml up -d`
 
 **Nota:**  
 * Usar una version de docker compose actualizada (minimo v2)
@@ -31,3 +31,17 @@
 **Nota:**  
 * Se deben recargar los Consumidores para ver los nuevos mensajes recibidos.  
 * Cuando hay más de un Consumidor los mensajes siguen el Round-Robin-Protocol (Se turnaran para recibir los mensajes).
+
+**(CASO 4) Inicializar contenedores en maquinas independientes**  
+**Broker:**  
+`docker run --name broker-1 -e BROKER_NAME=localhost -e QUEUE_NAME=cola1 -p5672:5672 -p15672:15672 -d rabbitmq:management`  
+`docker exec broker-1 /bin/bash -c 'rabbitmqadmin -u guest -p guest -H ${BROKER_NAME} -P 15672 declare queue name=${QUEUE_NAME} durable=true'`  
+**Productor:**  
+`docker build -t java-producer .`  
+`docker run --name java-producer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8081:8081 -d java-producer`  
+**Consumidor:**  
+`docker build -t java-consumer .`  
+`docker run --name java-consumer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8082:8082 -d java-consumer`  
+
+**Nota:**  
+* La variable de entorno `BROKER_NAME` tanto del Consumidor como del Productor debe ser reemplazada por la `ip` de la maquina que esta ejecutando el `Broker`.
