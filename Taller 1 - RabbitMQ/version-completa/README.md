@@ -50,4 +50,4 @@
 `docker run --name python-consumer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8082:8082 -d python-consumer`
 
 **Nota:**  
-* La variable de entorno `BROKER_NAME` tanto del Consumidor como del Productor debe ser reemplazada por la `ip` de la maquina que esta ejecutando el `Broker`.
+* La variable de entorno `BROKER_NAME` tanto del Consumidor como del Productor debe ser reemplazada por la `ip` de la `Máquina Broker`.
