@@ -38,16 +38,16 @@
 `docker exec broker-1 /bin/bash -c 'rabbitmqadmin -u guest -p guest -H ${BROKER_NAME} -P 15672 declare queue name=${QUEUE_NAME} durable=true'`  
 * **Máquina Productor (JAVA):**  
 `docker build -t java-producer .producer`  
-`docker run --name java-producer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8081:8081 -d java-producer`  
-* **Máquina Consumidor (JAVA):**  
-`docker build -t java-consumer .consumer`  
-`docker run --name java-consumer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8082:8082 -d java-consumer`
+`docker run --name java-producer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8081:8081 -d java-producer`
 * **Máquina Productor (PYTHON):**  
 `docker build -t python-producer .producer-py`  
-`docker run --name python-producer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8081:8081 -d python-producer`  
+`docker run --name python-producer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8082:8081 -d python-producer`  
+* **Máquina Consumidor (JAVA):**  
+`docker build -t java-consumer .consumer`  
+`docker run --name java-consumer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8083:8082 -d java-consumer`
 * **Máquina Consumidor (PYTHON):**  
 `docker build -t python-consumer .consumer-py`  
-`docker run --name python-consumer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8082:8082 -d python-consumer`
+`docker run --name python-consumer-1 -e BROKER_NAME=host -e QUEUE_NAME=cola1 -p8084:8082 -d python-consumer`
 
 **Nota:**  
 * La variable de entorno `BROKER_NAME` tanto del Consumidor como del Productor debe ser reemplazada por la `ip` de la `Máquina Broker`.
