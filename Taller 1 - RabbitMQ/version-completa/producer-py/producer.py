@@ -1,6 +1,6 @@
 from flask import Flask
-import os
 import pika
+import os
 
 app = Flask(__name__)
 
@@ -21,8 +21,7 @@ BROKER_NAME = 'broker-1' #os.getenv('BROKER_NAME')
 QUEUE_NAME = 'cola1'#os.getenv('QUEUE_NAME')
 
 # Instantiate the ProducerService with the queue name
-producer_service = ProducerService(queue_name='cola1', broker_host='broker-1')
-#producer_service = ProducerService(queue_name=QUEUE_NAME, broker_host=BROKER_NAME)
+producer_service = ProducerService(queue_name=QUEUE_NAME, broker_host=BROKER_NAME)
 
 @app.route('/publish/<message>', methods=['GET'])
 def publish_message(message):
