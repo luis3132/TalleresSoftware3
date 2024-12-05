@@ -1,0 +1,3 @@
+Label,# Samples,Average,Min,Max,Std. Dev.,Error %,Throughput,Received KB/sec,Sent KB/sec,Avg. Bytes
+HTTP Request,250,2059,121,4769,1314.08,0.000%,49.96003,21.13,17.86,433.0
+TOTAL,250,2059,121,4769,1314.08,0.000%,49.96003,21.13,17.86,433.0
